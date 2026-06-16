@@ -1,8 +1,11 @@
+import DeliveryOptions from "../DeliveryOptions/DeliveryOptions";
+import HeroBanner from "./HeroBanner/HeroBanner";
 
 const HomePage = () => {
     return (
         <div>
-            this is home page
+            <HeroBanner/>
+            <DeliveryOptions/>
         </div>
     );
 };
