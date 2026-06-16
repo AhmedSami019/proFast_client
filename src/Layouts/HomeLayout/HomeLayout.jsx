@@ -5,7 +5,7 @@ import Footer from "../../Pages/Shared/Footer/Footer";
 const HomeLayout = () => {
   return (
     <div className="bg-base-100">
-      <section className="w-11/12 mx-auto">
+      <section className="w-11/12 mx-auto space-y-5">
         <Navbar></Navbar>
         <Outlet></Outlet>
         <Footer></Footer>

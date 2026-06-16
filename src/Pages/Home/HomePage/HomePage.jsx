@@ -3,7 +3,7 @@ import HeroBanner from "./HeroBanner/HeroBanner";
 
 const HomePage = () => {
     return (
-        <div>
+        <div className="space-y-5">
             <HeroBanner/>
             <DeliveryOptions/>
         </div>
