@@ -7,7 +7,8 @@ import banner3 from "../../../../assets/banner/banner3.png"
 const HeroBanner = () => {
   return (
     <Carousel autoPlay={true}
-    infiniteLoop={true}>
+    infiniteLoop={true}
+    showThumbs={false}>
       <div>
         <img src={banner1} /> 
       </div>

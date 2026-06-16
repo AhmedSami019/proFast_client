@@ -26,11 +26,11 @@ const optionsData = [
 
 const DeliveryOptions = () => {
   return (
-    <div className="w-10/12 mx-auto space-y-5">
+    <div className="px10 md:px-20 space-y-5">
       <h2 className="text-3xl font-bold">How it works</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-        {optionsData.map((potion) => (
-          <div className="bg-white rounded-2xl p-7 space-y-2">
+        {optionsData.map((potion, index) => (
+          <div key={index} className="bg-white rounded-2xl p-7 space-y-2">
             <div>
                 <TbTruckDelivery size={40} />
             </div>
