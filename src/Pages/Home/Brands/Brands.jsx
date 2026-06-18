@@ -18,6 +18,13 @@ const Brands = () => {
     randstad,
     star_people,
     star,
+    amazon,
+    amazon_vector,
+    casio,
+    moonstar,
+    randstad,
+    star_people,
+    star,
   ];
   return (
     <div className="space-y-10">

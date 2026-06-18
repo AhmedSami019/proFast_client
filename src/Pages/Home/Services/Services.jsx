@@ -1,40 +1,25 @@
+import { useEffect, useState } from "react";
 import serviceIcon from "../../../assets/service.png"
 
-const services= [
-    {
-        title: 'Express  & Standard Delivery',
-        description: 'We deliver parcels within 24–72 hours in Dhaka, Chittagong, Sylhet, Khulna, and Rajshahi. Express delivery available in Dhaka within 4–6 hours from pick-up to drop-off.'
-    },
-    {
-        title: 'Express  & Standard Delivery',
-        description: 'We deliver parcels within 24–72 hours in Dhaka, Chittagong, Sylhet, Khulna, and Rajshahi. Express delivery available in Dhaka within 4–6 hours from pick-up to drop-off.'
-    },
-    {
-        title: 'Express  & Standard Delivery',
-        description: 'We deliver parcels within 24–72 hours in Dhaka, Chittagong, Sylhet, Khulna, and Rajshahi. Express delivery available in Dhaka within 4–6 hours from pick-up to drop-off.'
-    },
-    {
-        title: 'Express  & Standard Delivery',
-        description: 'We deliver parcels within 24–72 hours in Dhaka, Chittagong, Sylhet, Khulna, and Rajshahi. Express delivery available in Dhaka within 4–6 hours from pick-up to drop-off.'
-    },
-    {
-        title: 'Express  & Standard Delivery',
-        description: 'We deliver parcels within 24–72 hours in Dhaka, Chittagong, Sylhet, Khulna, and Rajshahi. Express delivery available in Dhaka within 4–6 hours from pick-up to drop-off.'
-    },
-    {
-        title: 'Express  & Standard Delivery',
-        description: 'We deliver parcels within 24–72 hours in Dhaka, Chittagong, Sylhet, Khulna, and Rajshahi. Express delivery available in Dhaka within 4–6 hours from pick-up to drop-off.'
-    },
-]
 const Services = () => {
+
+    const [allServices, setAllServices] = useState([])
+
+    useEffect(()=> {
+        fetch('services.json')
+        .then(res => res.json())
+        .then(data => setAllServices(data))
+    }, [])
+    console.log(allServices);
+
     return (
         <div className="bg-secondary rounded-2xl p-10 md:p-20 space-y-8">
             <h2 className="text-white text-4xl font-bold text-center">Our Services</h2>
             <p className="text-white text-center">Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. From personal packages to business shipments — we deliver on time, every time.</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {
-                    services.map((service, index) => (
-                        <div key={index} className="bg-white p-8 rounded-2xl flex flex-col items-center gap-5">
+                    allServices.map((service, index) => (
+                        <div key={index} className="bg-white p-8 rounded-2xl flex flex-col items-center gap-5 text-center">
                             <div className="bg-blue-100 p-4 rounded-full">
                                 <img src={serviceIcon} alt="" />
                             </div>
