@@ -10,7 +10,6 @@ const Services = () => {
         .then(res => res.json())
         .then(data => setAllServices(data))
     }, [])
-    console.log(allServices);
 
     return (
         <div className="bg-secondary rounded-2xl p-10 md:p-20 space-y-8">
