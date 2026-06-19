@@ -5,7 +5,7 @@ import { useRef } from "react";
 
 const Coverage = () => {
   const position = [23.685, 90.3563];
-  const mapRef = useRef(null)
+  const mapRef = useRef()
 
   const serviceCenters = useLoaderData();
 
@@ -15,13 +15,12 @@ const Coverage = () => {
     const district = serviceCenters.find(c => c.district.toLowerCase().includes(location.toLowerCase()))
     if(district){
         const coord = [district.latitude, district.longitude]
-        console.log(coord);
         mapRef.current.flyTo(coord, 14)
     }
   }
 
   return (
-    <div className="bg-white p-10 space-y-10 rounded-2xl">
+    <div className="bg-white p-10 space-y-5 rounded-2xl">
       <div className="space-y-12 mb-10">
         <h2 className="text-5xl font-bold">We are available in 64 districts</h2>
         <form onSubmit={handleSearchLocation}>
