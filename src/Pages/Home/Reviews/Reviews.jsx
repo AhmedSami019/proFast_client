@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ReviewCard from "../ReviewCard/ReviewCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectCoverflow, Pagination } from "swiper/modules";
-import merchantLocation from "../../../assets/location-merchant.png";
+import customer_top from "../../../assets/customer-top.png";
 
 const Reviews = () => {
   const [allReviews, setAllReviews] = useState([]);
@@ -15,7 +15,7 @@ const Reviews = () => {
   return (
     <div className="space-y-10">
       <div>
-        <img className="mx-auto w-80" src={merchantLocation} alt="" />
+        <img className="mx-auto w-80" src={customer_top} alt="" />
       </div>
       <div>
         <h2 className="text-3xl text-center font-bold mb-3">
@@ -49,7 +49,7 @@ const Reviews = () => {
         >
           {allReviews.map((review) => (
             <SwiperSlide key={review.id}>
-              <ReviewCard />
+              <ReviewCard review={review}/>
             </SwiperSlide>
           ))}
         </Swiper>
