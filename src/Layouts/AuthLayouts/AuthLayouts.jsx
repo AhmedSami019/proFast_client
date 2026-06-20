@@ -6,7 +6,7 @@ const AuthLayouts = () => {
     return (
         <div className="w-11/12 mx-auto mt-10 space-y-10">
             <Logo/>
-            <div className="flex">
+            <div className="flex items-center">
 
             <div className="flex-1">
                 <Outlet></Outlet>

@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth";
+import { Link } from "react-router";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
@@ -42,6 +43,7 @@ const Login = () => {
             </div>
             <button className="btn btn-neutral mt-4">Login</button>
           </fieldset>
+          <p>New in Profast? <Link className="text-blue-500" to={'/register'}>Register</Link></p>
         </form>
       </div>
     </div>
