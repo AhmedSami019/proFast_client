@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth";
 import { Link } from "react-router";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import axios from "axios";
 
 const Register = () => {
   const {
@@ -10,13 +11,39 @@ const Register = () => {
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
-  const { registerUser } = useAuth();
+  const { registerUser, updateUserProfile } = useAuth();
 
   const handleRegistration = (data) => {
     console.log(data);
+
+    const profileImg = data.photo[0]
     registerUser(data.email, data.password)
       .then((result) => {
         console.log(result.user);
+
+        // 1. store the img into form data
+        const formData = new FormData()
+        formData.append('image', profileImg)
+
+        // send the photo to the store and get url
+        const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_PHOTO_HOST_API}`
+        axios.post(image_API_URL, formData)
+        .then(result => {
+          console.log(result.data);
+          const imageUrl = result.data.data.display_url
+
+          const updatedProfileData = {
+            displayName : data.name, photoURL: imageUrl
+          }
+          updateUserProfile(updatedProfileData)
+          .then(()=>{
+            console.log('user updated successfully');
+          })
+          .catch(error => {
+            console.log(error.code);
+          })
+
+        })
       })
       .catch((error) => {
         console.log(error);
@@ -33,7 +60,7 @@ const Register = () => {
           <fieldset className="fieldset">
             <label className="label">Name</label>
             <input
-              type="email"
+              type="text"
               className="input"
               placeholder="your name"
               {...register("name", { required: true })}
