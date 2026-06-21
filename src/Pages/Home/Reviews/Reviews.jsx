@@ -21,7 +21,7 @@ const Reviews = () => {
         <h2 className="text-3xl text-center font-bold mb-3">
           What our customer are saying
         </h2>
-        <p className="text-base-200 text-center">
+        <p className="text-base-300 text-center">
           Enhance posture, mobility, and well-being effortlessly with Posture
           Pro. Achieve proper alignment, reduce pain, and strengthen your body
           with ease!
@@ -45,7 +45,7 @@ const Reviews = () => {
           modules={[EffectCoverflow, Pagination, Autoplay]}
           className="mySwiper"
            autoplay={{ delay: 2000, disableOnInteraction: false }}
-        loop={true}
+        loop={allReviews.length > 3}
         >
           {allReviews.map((review) => (
             <SwiperSlide key={review.id}>

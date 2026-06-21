@@ -35,7 +35,7 @@ const DeliveryOptions = () => {
                 <TbTruckDelivery size={40} />
             </div>
             <h3 className="text-xl font-semibold">{potion.title}</h3>
-            <p className="text-base-200">{potion.description}</p>
+            <p className="text-base-300">{potion.description}</p>
             </div>
         ))}
       </div>

@@ -20,7 +20,7 @@ const Login = () => {
   return (
     <div>
       <h2 className="text-center text-4xl font-extrabold">Welcome, Login now</h2>
-      <p className="text-center text-base-200">login with profast</p>
+      <p className="text-center text-base-300">login with profast</p>
 
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl mx-auto mt-10">
         <form className="card-body" onSubmit={handleSubmit(handleLogin)}>

@@ -32,7 +32,7 @@ const Features = () => {
                         <div className="w-0.5 h-40 bg-[repeating-linear-gradient(to_bottom,#d1d5db_0_5px,transparent_15px_20px)]"></div>
                         <div>
                             <h3 className="text-2xl font-bold mb-3">{feature.title}</h3>
-                            <p className="text-base-200">{feature.description}</p>
+                            <p className="text-base-300">{feature.description}</p>
                         </div>
                     </div>
                 ))
