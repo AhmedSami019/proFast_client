@@ -6,7 +6,6 @@ import SocialLogin from "../SocialLogin/SocialLogin";
 const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  console.log("location from login", location);
 
   const { register, handleSubmit } = useForm();
   const { signInUser } = useAuth();
@@ -54,7 +53,7 @@ const Login = () => {
           </fieldset>
           <p>
             New in Profast?{" "}
-            <Link className="text-blue-500" to={"/register"}>
+            <Link className="text-blue-500" to={"/register"} state={location?.state} >
               Register
             </Link>
           </p>
