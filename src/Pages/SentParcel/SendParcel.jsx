@@ -1,5 +1,6 @@
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
+import Swal from "sweetalert2";
 
 const SendParcel = () => {
   const {
@@ -27,7 +28,40 @@ const SendParcel = () => {
 
   // handler function
   const handleSendParcel = (data) => {
-    console.log(data);
+    const isDocument = data.documentType === "document";
+    const isSameDistrict = data.senderDistrict === data.receiverDistrict;
+    const parcelWeight = parseFloat(data.parcelWeight);
+    let cost = 0;
+    if (isDocument) {
+      cost = isSameDistrict ? 60 : 80;
+    } else {
+      if (parcelWeight <= 3) {
+        cost = isSameDistrict ? 110 : 150;
+      } else {
+        const extraWeight = parcelWeight - 3;
+        const extraCost = extraWeight * 40;
+        cost = isSameDistrict ? 110 + extraCost : 150 + extraCost + 40;
+      }
+    }
+
+    Swal.fire({
+      title: "Agree with the cost?",
+      text: `You have to pay ${cost} taka !`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "I agree",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log(cost);
+        Swal.fire({
+          title: "Successful!",
+          text: "You added parcel successfully.",
+          icon: "success",
+        });
+      }
+    });
   };
 
   return (
@@ -126,17 +160,17 @@ const SendParcel = () => {
                 {/* district */}
                 <fieldset className="fieldset">
                   <legend className="fieldset-legend">Sender District</legend>
-                  <select defaultValue="" className="select w-full">
+                  <select
+                    {...register("senderDistrict")}
+                    defaultValue=""
+                    className="select w-full"
+                  >
                     <option value="" disabled={true}>
                       Pick a district
                     </option>
-                    {districtByRegion(senderRegion).map((region, index) => (
-                      <option
-                        {...register("senderDistrict")}
-                        value={region}
-                        key={index}
-                      >
-                        {region}
+                    {districtByRegion(senderRegion).map((district, index) => (
+                      <option value={district} key={index}>
+                        {district}
                       </option>
                     ))}
                   </select>
