@@ -1,14 +1,18 @@
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const SendParcel = () => {
   const {
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
+
+  // data from hook
+  const axiosSecure = useAxiosSecure();
 
   // load data
   const serviceCenterData = useLoaderData();
@@ -54,11 +58,21 @@ const SendParcel = () => {
       confirmButtonText: "I agree",
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log(cost);
-        Swal.fire({
-          title: "Successful!",
-          text: "You added parcel successfully.",
-          icon: "success",
+        data.deliveryCost = cost
+        axiosSecure.post("/parcels", data).then((res) => {
+          if (res.data.insertedId) {
+            Swal.fire({
+              title: "Successful!",
+              text: "You added parcel successfully.",
+              icon: "success",
+            });
+          }else{
+            Swal.fire({
+              title: "Ooops!",
+              text: "parcel didn't added.",
+              icon: "error",
+            });
+          }
         });
       }
     });
@@ -132,6 +146,13 @@ const SendParcel = () => {
                   placeholder="Sender name"
                   {...register("senderName")}
                 />
+                <legend className="fieldset-legend">Sender email</legend>
+                <input
+                  type="email"
+                  className="input w-full"
+                  placeholder="Sender email"
+                  {...register("senderEmail")}
+                />
                 <legend className="fieldset-legend">Sender Phone</legend>
                 <input
                   type="text"
@@ -204,6 +225,13 @@ const SendParcel = () => {
                 placeholder="Receiver name"
                 {...register("receiverName")}
               />
+               <legend className="fieldset-legend">Receiver email</legend>
+                <input
+                  type="email"
+                  className="input w-full"
+                  placeholder="Receiver email"
+                  {...register("receiverEmail")}
+                />
               <legend className="fieldset-legend">Receiver Phone</legend>
               <input
                 type="text"
