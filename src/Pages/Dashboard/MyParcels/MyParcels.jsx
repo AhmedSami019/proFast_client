@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { BiDetail, BiEdit } from "react-icons/bi";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const MyParcels = () => {
   // loaded data by hooks
@@ -44,6 +45,19 @@ const MyParcels = () => {
     });
   };
 
+//   to handle payment
+  const handlePayment = async(parcel)=>{
+    const paymentInfo = {
+        parcelId: parcel._id,
+        parcelName : parcel.parcelName,
+        senderEmail : parcel.senderEmail,
+        cost : parcel.deliveryCost
+    }
+
+    const res = await axiosSecure.post('/payment-checkout-session', paymentInfo)
+    window.location.href = res.data.url
+  }
+
   return (
     <div>
       <div className="overflow-x-auto">
@@ -54,7 +68,8 @@ const MyParcels = () => {
               <th></th>
               <th>Name</th>
               <th>Parcel cost</th>
-              <th>Payment method</th>
+              <th>Payment</th>
+              <th>Delivery status</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -64,11 +79,18 @@ const MyParcels = () => {
                 <th>{index + 1}</th>
                 <td>{parcel.parcelName}</td>
                 <td>{parcel.deliveryCost} tk</td>
-                <td>cash</td>
                 <td>
-                  <button className="btn btn-square hover:bg-primary">
+                    {
+                        parcel.paymentStatus === "paid"?
+                        <span className="text-green-500">Paid</span> :
+                        <button onClick={()=>handlePayment(parcel)} className="btn btn-sm btn-primary text-black">Pay</button>
+                    }
+                </td>
+                <td>{parcel.deliveryStatus}</td>
+                <td>
+                  <Link to={`/dashboard/payment/${parcel._id}`} className="btn btn-square hover:bg-primary">
                     <BiDetail size={24} />
-                  </button>
+                  </Link>
                   <button className="btn btn-square hover:bg-primary mx-3">
                     <BiEdit size={24} />
                   </button>
