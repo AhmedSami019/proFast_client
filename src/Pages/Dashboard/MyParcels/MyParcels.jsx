@@ -33,7 +33,7 @@ const MyParcels = () => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/parcels/${id}`).then((res) => {
           if (res.data.deletedCount === 1) {
-            refetch()
+            refetch();
             Swal.fire({
               title: "Deleted!",
               text: "Your parcel request has been deleted.",
@@ -45,18 +45,21 @@ const MyParcels = () => {
     });
   };
 
-//   to handle payment
-  const handlePayment = async(parcel)=>{
+  //   to handle payment
+  const handlePayment = async (parcel) => {
     const paymentInfo = {
-        parcelId: parcel._id,
-        parcelName : parcel.parcelName,
-        senderEmail : parcel.senderEmail,
-        cost : parcel.deliveryCost
-    }
+      parcelId: parcel._id,
+      parcelName: parcel.parcelName,
+      senderEmail: parcel.senderEmail,
+      cost: parcel.deliveryCost,
+    };
 
-    const res = await axiosSecure.post('/payment-checkout-session', paymentInfo)
-    window.location.href = res.data.url
-  }
+    const res = await axiosSecure.post(
+      "/payment-checkout-session",
+      paymentInfo,
+    );
+    window.location.href = res.data.url;
+  };
 
   return (
     <div>
@@ -80,15 +83,23 @@ const MyParcels = () => {
                 <td>{parcel.parcelName}</td>
                 <td>{parcel.deliveryCost} tk</td>
                 <td>
-                    {
-                        parcel.paymentStatus === "paid"?
-                        <span className="text-green-500">Paid</span> :
-                        <button onClick={()=>handlePayment(parcel)} className="btn btn-sm btn-primary text-black">Pay</button>
-                    }
+                  {parcel.paymentStatus === "paid" ? (
+                    <span className="text-green-500">Paid</span>
+                  ) : (
+                    <button
+                      onClick={() => handlePayment(parcel)}
+                      className="btn btn-sm btn-primary text-black"
+                    >
+                      Pay
+                    </button>
+                  )}
                 </td>
                 <td>{parcel.deliveryStatus}</td>
                 <td>
-                  <Link to={`/dashboard/payment/${parcel._id}`} className="btn btn-square hover:bg-primary">
+                  <Link
+                    to={`/dashboard/payment/${parcel._id}`}
+                    className="btn btn-square hover:bg-primary"
+                  >
                     <BiDetail size={24} />
                   </Link>
                   <button className="btn btn-square hover:bg-primary mx-3">

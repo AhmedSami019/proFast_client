@@ -1,4 +1,4 @@
-import { FaCubes } from "react-icons/fa";
+import { FaCubes, FaRegCreditCard } from "react-icons/fa";
 import { Link, Outlet } from "react-router";
 
 const DashboardLayout = () => {
@@ -72,9 +72,19 @@ const DashboardLayout = () => {
               <Link
                 to={"/dashboard/my-parcels"}
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="MyParcels"
+                data-tip="My-Parcels"
               >
                 <FaCubes />
+                <span className="is-drawer-close:hidden">My Parcels</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/dashboard/payments-history"}
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Payment-history"
+              >
+                <FaRegCreditCard />
                 <span className="is-drawer-close:hidden">My Parcels</span>
               </Link>
             </li>
