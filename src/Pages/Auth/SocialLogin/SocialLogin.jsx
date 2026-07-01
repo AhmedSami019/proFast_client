@@ -1,28 +1,49 @@
 import { useLocation, useNavigate } from "react-router";
 import useAuth from "../../../Hooks/useAuth";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const SocialLogin = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
-  const location = useLocation()
-  const navigate =  useNavigate()
+  const { googleSignIn } = useAuth();
 
-    const {googleSignIn} = useAuth()
+  const handleGoogleLogin = () => {
+    googleSignIn()
+      .then((result) => {
+        console.log(result.user);
 
-    const handleGoogleLogin = ()=>{
-        googleSignIn()
-        .then(result => {
-            console.log(result.user);
-            navigate(location?.state || "/")
-        }).catch(error => {
-            console.log(error.code);
-        })
-    }
+        const userInfo = {
+          email: result.user.email,
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL,
+        };
+
+        axiosSecure.post("/users", userInfo).then((res) => {
+          console.log(res);
+          navigate(location?.state || "/");
+          Swal.fire({
+                        title: "Logged out!",
+                        text: "Successfully logged out.",
+                        icon: "success",
+                      });
+        });
+      })
+      .catch((error) => {
+        console.log(error.code);
+      });
+  };
 
   return (
     <div className="text-center w-full p-5">
       <div className="mb-2 -mt-5">or</div>
       {/* Google */}
-      <button onClick={handleGoogleLogin} className="btn bg-white text-black border-[#e5e5e5] w-full">
+      <button
+        onClick={handleGoogleLogin}
+        className="btn bg-white text-black border-[#e5e5e5] w-full"
+      >
         <svg
           aria-label="Google logo"
           width="16"

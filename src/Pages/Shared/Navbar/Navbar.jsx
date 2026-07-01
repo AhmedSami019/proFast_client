@@ -1,17 +1,35 @@
 import { Link, NavLink } from "react-router";
 import Logo from "../../../Components/Logo/Logo";
 import useAuth from "../../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const { logOut, user } = useAuth();
   const handleLogOut = () => {
-    logOut()
-      .then(() => {
-        console.log("user logged out");
-      })
-      .catch((error) => {
-        console.log(error.code);
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to logout",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "Stay",
+      cancelButtonColor: "#3085d6",
+      confirmButtonColor: "#d33",
+      confirmButtonText: "Yes, Logout!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logOut()
+          .then(() => {
+            Swal.fire({
+              title: "Logged out!",
+              text: "Successfully logged out.",
+              icon: "success",
+            });
+          })
+          .catch((error) => {
+            console.log(error.code);
+          });
+      }
+    });
   };
 
   const links = (
@@ -28,9 +46,13 @@ const Navbar = () => {
       <li>
         <NavLink>About</NavLink>
       </li>
-      {user && <>
-      <li><NavLink to="/dashboard/my-parcels">My parcels</NavLink></li>
-      </>}
+      {user && (
+        <>
+          <li>
+            <NavLink to="/dashboard/my-parcels">My parcels</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 
