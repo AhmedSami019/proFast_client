@@ -25,8 +25,8 @@ const SocialLogin = () => {
           console.log(res);
           navigate(location?.state || "/");
           Swal.fire({
-                        title: "Logged out!",
-                        text: "Successfully logged out.",
+                        title: "Welcome!",
+                        text: "Successfully logged in.",
                         icon: "success",
                       });
         });

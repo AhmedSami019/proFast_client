@@ -31,6 +31,10 @@ const router = createBrowserRouter([
             <Rider></Rider>
           </PrivateRoute>
         ),
+        loader: async () => {
+          const res = await fetch("/serviceCenter.json");
+          return res.json();
+        },
       },
       {
         path: "send-parcel",
