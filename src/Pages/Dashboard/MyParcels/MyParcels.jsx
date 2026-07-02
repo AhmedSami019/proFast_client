@@ -58,13 +58,18 @@ const MyParcels = () => {
       "/payment-checkout-session",
       paymentInfo,
     );
-    window.location.href = res.data.url;
+    window.location.assign(res.data.url);
   };
 
   return (
     <div>
       <div className="overflow-x-auto">
-        <table className="table table-zebra">
+        <div className="flex justify-between items-center my-5">
+          <h1 className="text-4xl font-bold">My parcels</h1>
+          <Link to={"/send-parcel"} className="btn btn-primary text-black"
+          >Create parcel</Link>
+        </div>
+        <table className="table table-zebra border-t border-gray-300">
           {/* head */}
           <thead>
             <tr>

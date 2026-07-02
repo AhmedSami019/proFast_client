@@ -39,7 +39,10 @@ const router = createBrowserRouter([
             <SendParcel></SendParcel>
           </PrivateRoute>
         ),
-        loader: () => fetch("serviceCenter.json").then((res) => res.json()),
+        loader: async () => {
+          const res = await fetch("/serviceCenter.json");
+          return res.json();
+        },
       },
       {
         path: "coverage",
@@ -64,30 +67,42 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "my-parcels",
-        element: <PrivateRoute><MyParcels></MyParcels></PrivateRoute>
+        element: (
+          <PrivateRoute>
+            <MyParcels></MyParcels>
+          </PrivateRoute>
+        ),
       },
       {
-        path: 'payments-history',
-        Component: PaymentsHistory
+        path: "payments-history",
+        Component: PaymentsHistory,
       },
       {
         path: "payment/:parcelId",
-        element: <PrivateRoute><Payment></Payment></PrivateRoute>
+        element: (
+          <PrivateRoute>
+            <Payment></Payment>
+          </PrivateRoute>
+        ),
       },
       {
-        path: 'payment-success',
+        path: "payment-success",
         Component: PaymentSuccess,
       },
       {
-        path: 'payment-canceled',
-        Component: PaymentCancel
-      }
-    ]
-  }
+        path: "payment-canceled",
+        Component: PaymentCancel,
+      },
+    ],
+  },
 ]);
 
 export default router;
