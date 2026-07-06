@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 const ApproveRiders = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: riders = [] } = useQuery({
+  const { data: riders = [], refetch } = useQuery({
     queryKey: ["riders", "pending"],
     queryFn: async () => {
       const res = await axiosSecure.get("/riders");
@@ -15,8 +15,8 @@ const ApproveRiders = () => {
     },
   });
 
-  const handleApprovalRider = (id) => {
-    const updatedInfo = { status: "Approved" };
+  const handleUpdateRider = (rider, status) => {
+    const updatedInfo = { status, rider };
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -24,12 +24,12 @@ const ApproveRiders = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, approve it!",
+      confirmButtonText: `Yes ${status.toLowerCase() === 'approved' ? "Approved": "Reject"} it`,
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.patch(`/riders/${id}`, updatedInfo).then((res) => {
-          console.log(res);
+        axiosSecure.patch(`/riders/${rider._id}`, updatedInfo).then((res) => {
           if (res.data.modifiedCount) {
+            refetch()
             Swal.fire({
               title: "Successful!",
               text: "Your user become a rider",
@@ -40,9 +40,15 @@ const ApproveRiders = () => {
         });
       }
     });
-
-    console.log(id);
   };
+
+  const handleApprovalRider = (rider) => {
+    handleUpdateRider(rider, "Approved");
+  };
+
+  const handleRejectRider = (rider)=>{
+    handleUpdateRider(rider, "Rejected")
+  }
 
   return (
     <div>
@@ -73,7 +79,7 @@ const ApproveRiders = () => {
                     className={
                       rider.status === "Approved"
                         ? "text-green-500"
-                        : "text-warning"
+                        : rider.status === "Rejected"? "text-red-600": "text-warning"
                     }
                   >
                     {rider.status}
@@ -81,12 +87,12 @@ const ApproveRiders = () => {
                 </td>
                 <td>
                   <button
-                    onClick={() => handleApprovalRider(rider._id)}
+                    onClick={() => handleApprovalRider(rider)}
                     className="btn"
                   >
                     <FaUserCheck />
                   </button>
-                  <button className="btn">
+                  <button onClick={()=>handleRejectRider(rider)} className="btn">
                     <IoPersonRemoveSharp />
                   </button>
                   <button className="btn">
