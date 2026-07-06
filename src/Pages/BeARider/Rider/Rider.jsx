@@ -1,6 +1,9 @@
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
 import riderVector from "../../../assets/agent-pending.png";
+import useAuth from "../../../Hooks/useAuth";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const Rider = () => {
   const {
@@ -10,10 +13,14 @@ const Rider = () => {
     // formState: { errors },
   } = useForm();
 
+  // load data
   const serviceCenterData = useLoaderData();
   const duplicateRegion = serviceCenterData.map((center) => center.region);
   const regions = [...new Set(duplicateRegion)];
   const riderRegion = useWatch({ control, name: "riderRegion" });
+
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
 
   // to get district by region
   const districtByRegion = (region) => {
@@ -26,6 +33,23 @@ const Rider = () => {
 
   const handleBeARider = (data) => {
     console.log(data);
+    axiosSecure.post("/riders", data).then((res) => {
+      if (res.data.insertedId) {
+        Swal.fire({
+          title: "Successful!",
+          text: "Your application submitted successfully. we will reach you after 10 days",
+          icon: "success",
+          timer: 2000
+        });
+      } else {
+        Swal.fire({
+          title: "Ooops!",
+          text: "application didn't submitted.",
+          icon: "error",
+          timer: 2000
+        });
+      }
+    });
   };
 
   return (
@@ -51,6 +75,7 @@ const Rider = () => {
                     type="text"
                     className="input w-full"
                     placeholder="Your name"
+                    defaultValue={user.displayName}
                     {...register("Rider")}
                   />
                   <legend className="fieldset-legend">Your email</legend>
@@ -58,6 +83,7 @@ const Rider = () => {
                     type="email"
                     className="input w-full"
                     placeholder="Your email"
+                    defaultValue={user.email}
                     {...register("riderEmail")}
                   />
                   <legend className="fieldset-legend">
@@ -154,7 +180,10 @@ const Rider = () => {
                     placeholder="Tell Us About Yourself"
                     {...register("extraInfo")}
                   />
-                  <button type="submit" className="btn btn-primary text-black mt-3">
+                  <button
+                    type="submit"
+                    className="btn btn-primary text-black mt-3"
+                  >
                     Submit
                   </button>
                 </fieldset>
