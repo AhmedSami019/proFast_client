@@ -76,7 +76,7 @@ const Rider = () => {
                     className="input w-full"
                     placeholder="Your name"
                     defaultValue={user.displayName}
-                    {...register("Rider")}
+                    {...register("riderName")}
                   />
                   <legend className="fieldset-legend">Your email</legend>
                   <input
