@@ -1,4 +1,4 @@
-import { FaCubes, FaRegCreditCard } from "react-icons/fa";
+import { FaCubes, FaRegCreditCard, FaUsers } from "react-icons/fa";
 import { Link, Outlet } from "react-router";
 
 const DashboardLayout = () => {
@@ -85,7 +85,17 @@ const DashboardLayout = () => {
                 data-tip="Payment-history"
               >
                 <FaRegCreditCard />
-                <span className="is-drawer-close:hidden">My Parcels</span>
+                <span className="is-drawer-close:hidden">Payment history</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/dashboard/user-management"}
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Payment-history"
+              >
+                <FaUsers />
+                <span className="is-drawer-close:hidden">User Management</span>
               </Link>
             </li>
 
