@@ -16,11 +16,13 @@ import PaymentCancel from "../Pages/Dashboard/Payment/PaymentCancel";
 import PaymentsHistory from "../Pages/Dashboard/PaymentsHistory/PaymentsHistory";
 import ApproveRiders from "../Pages/Dashboard/ApproveRiders/ApproveRiders";
 import UserManagement from "../Pages/Dashboard/UserManagement/UserManagement";
+import Error404 from "../Components/Error404/Error404";
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: HomeLayout,
+    errorElement: <Error404/>,
     children: [
       {
         index: true,
@@ -60,6 +62,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     Component: AuthLayouts,
+    errorElement: <Error404/>,
     children: [
       {
         path: "login",
@@ -73,6 +76,7 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
+    errorElement: <Error404/>,
     element: (
       <PrivateRoute>
         <DashboardLayout></DashboardLayout>

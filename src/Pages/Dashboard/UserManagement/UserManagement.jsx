@@ -14,7 +14,7 @@ const UserManagement = () => {
     },
   });
 
-  // to make an admin
+  // to manage user rol as admin
   const handleManageAdmin = (user) => {
     const updatedInfo = {
       role: "admin",
@@ -46,6 +46,7 @@ const UserManagement = () => {
       }
     });
   };
+  
 
   return (
     <div>

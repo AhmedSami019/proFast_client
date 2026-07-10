@@ -15,6 +15,10 @@
   --color-base-300: #606060;
 }
 
+.active{
+  background-color: #cccccb;
+}
+
 
 /* font for full body */
 body{

@@ -1,7 +1,11 @@
 import { FaCubes, FaRegCreditCard, FaUsers } from "react-icons/fa";
+import { MdOutlineDirectionsBike } from "react-icons/md";
 import { Link, Outlet } from "react-router";
+import useRole from "../../Hooks/useRole";
 
 const DashboardLayout = () => {
+  const { role } = useRole();
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -88,16 +92,34 @@ const DashboardLayout = () => {
                 <span className="is-drawer-close:hidden">Payment history</span>
               </Link>
             </li>
-            <li>
-              <Link
-                to={"/dashboard/user-management"}
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Payment-history"
-              >
-                <FaUsers />
-                <span className="is-drawer-close:hidden">User Management</span>
-              </Link>
-            </li>
+            {role === "admin" && (
+              <>
+                <li>
+                  <Link
+                    to={"/dashboard/approve-riders"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Rider Management"
+                  >
+                    <MdOutlineDirectionsBike />
+                    <span className="is-drawer-close:hidden">
+                      Rider Management
+                    </span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/dashboard/user-management"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="User Management"
+                  >
+                    <FaUsers />
+                    <span className="is-drawer-close:hidden">
+                      User Management
+                    </span>
+                  </Link>
+                </li>
+              </>
+            )}
 
             {/* List item */}
 
