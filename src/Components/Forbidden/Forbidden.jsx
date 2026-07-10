@@ -9,8 +9,9 @@ const Forbidden = () => {
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
-      <div className="flex flex-col gap-5">
-        <h1 className="text-3xl font-bold">Access forbidden 403</h1>
+      <Lottie className="w-xl mb-20" animationData={forbidden} loop autoplay />
+      <div className="flex flex-col gap-5 text-center">
+        <h1 className="text-5xl font-bold">Access forbidden 403</h1>
         <p>Sorry! we can't give you access in this page</p>
         <button
           onClick={() => navigate(-1)}
@@ -20,7 +21,6 @@ const Forbidden = () => {
           Go back
         </button>
       </div>
-      <Lottie animationData={forbidden} loop autoplay />
     </div>
   );
 };
