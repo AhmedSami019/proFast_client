@@ -12,7 +12,7 @@ const AdminRoute = ({children}) => {
         return <Loading></Loading>
     }
 
-    if(role.toLoserCase !== "admin"){
+    if(role.toLowerCase() !== "admin"){
         return <Forbidden></Forbidden>
     }
 
