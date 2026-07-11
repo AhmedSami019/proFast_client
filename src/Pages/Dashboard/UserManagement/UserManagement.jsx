@@ -32,7 +32,7 @@ const UserManagement = () => {
       confirmButtonText: `Yes ${user.role.toLowerCase() === "admin" ? "remove" : "make admin"}`,
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.patch(`/users/${user._id}`, updatedInfo).then((res) => {
+        axiosSecure.patch(`/users/${user._id}/role`, updatedInfo).then((res) => {
           if (res.data.modifiedCount) {
             refetch();
             Swal.fire({
