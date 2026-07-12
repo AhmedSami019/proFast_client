@@ -18,6 +18,7 @@ import ApproveRiders from "../Pages/Dashboard/ApproveRiders/ApproveRiders";
 import UserManagement from "../Pages/Dashboard/UserManagement/UserManagement";
 import Error404 from "../Components/Error404/Error404";
 import AdminRoute from "./AdminRoute";
+import AssignRiders from "../Pages/Dashboard/AssignRiders/AssignRiders";
 
 const router = createBrowserRouter([
   {
@@ -115,6 +116,10 @@ const router = createBrowserRouter([
       {
         path: 'approve-riders', 
         element: <AdminRoute><ApproveRiders></ApproveRiders></AdminRoute>
+      },
+      {
+        path: 'assign-riders', 
+        element: <AdminRoute><AssignRiders/></AdminRoute>
       },
       {
         path: "user-management",

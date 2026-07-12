@@ -64,7 +64,7 @@ const MyParcels = () => {
   return (
     <div>
       <div className="overflow-x-auto">
-        <div className="flex justify-between items-center my-5">
+        <div className="flex justify-between items-center my-5 mx-5">
           <h1 className="text-4xl font-bold">My parcels</h1>
           <Link to={"/send-parcel"} className="btn btn-primary text-black"
           >Create parcel</Link>
@@ -77,6 +77,7 @@ const MyParcels = () => {
               <th>Name</th>
               <th>Parcel cost</th>
               <th>Payment</th>
+              <th>Tracking id</th>
               <th>Delivery status</th>
               <th>Actions</th>
             </tr>
@@ -99,6 +100,7 @@ const MyParcels = () => {
                     </button>
                   )}
                 </td>
+                <td>{parcel.trackingId}</td>
                 <td>{parcel.deliveryStatus}</td>
                 <td>
                   <Link

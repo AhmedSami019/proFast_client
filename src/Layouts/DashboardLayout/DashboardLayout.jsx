@@ -2,6 +2,7 @@ import { FaCubes, FaRegCreditCard, FaUsers } from "react-icons/fa";
 import { MdOutlineDirectionsBike } from "react-icons/md";
 import { Link, Outlet } from "react-router";
 import useRole from "../../Hooks/useRole";
+import { TbTruckDelivery } from "react-icons/tb";
 
 const DashboardLayout = () => {
   const { role } = useRole();
@@ -103,6 +104,18 @@ const DashboardLayout = () => {
                     <MdOutlineDirectionsBike />
                     <span className="is-drawer-close:hidden">
                       Rider Management
+                    </span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/dashboard/assign-riders"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Assign Rider"
+                  >
+                    <TbTruckDelivery />
+                    <span className="is-drawer-close:hidden">
+                      Assign Rider
                     </span>
                   </Link>
                 </li>

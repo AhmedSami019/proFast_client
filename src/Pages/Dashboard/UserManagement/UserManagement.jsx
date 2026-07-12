@@ -3,13 +3,17 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { FaUserShield } from "react-icons/fa";
 import { BsShieldSlashFill } from "react-icons/bs";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 const UserManagement = () => {
+
+  // states
+  const [searchText, setSearchText] = useState('')
   const axiosSecure = useAxiosSecure();
   const { data: users = [], refetch } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["users", searchText],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/users`);
+      const res = await axiosSecure.get(`/users?searchText=${searchText}`);
       return res.data;
     },
   });
@@ -32,25 +36,47 @@ const UserManagement = () => {
       confirmButtonText: `Yes ${user.role.toLowerCase() === "admin" ? "remove" : "make admin"}`,
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.patch(`/users/${user._id}/role`, updatedInfo).then((res) => {
-          if (res.data.modifiedCount) {
-            refetch();
-            Swal.fire({
-              title: "Successful!",
-              text: `${user.displayname} confirmed as an admin`,
-              icon: "success",
-              timer: 2000,
-            });
-          }
-        });
+        axiosSecure
+          .patch(`/users/${user._id}/role`, updatedInfo)
+          .then((res) => {
+            if (res.data.modifiedCount) {
+              refetch();
+              Swal.fire({
+                title: "Successful!",
+                text: `${user.displayname} confirmed as an admin`,
+                icon: "success",
+                timer: 2000,
+              });
+            }
+          });
       }
     });
   };
-  
 
   return (
     <div>
-      <h2 className="text-4xl font-bold">User Management</h2>
+      <div className="flex justify-between my-5">
+        <h2 className="text-4xl font-bold">User Management</h2>
+        <label className="input mr-5">
+          <svg
+            className="h-[1em] opacity-50"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <g
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              strokeWidth="2.5"
+              fill="none"
+              stroke="currentColor"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </g>
+          </svg>
+          <input type="search" onChange={(e)=> setSearchText(e.target.value)} required placeholder="Search user" />
+        </label>
+      </div>
 
       <div className="overflow-x-auto">
         <table className="table">
