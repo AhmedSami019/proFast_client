@@ -1,4 +1,4 @@
-import { FaCubes, FaRegCreditCard, FaUsers } from "react-icons/fa";
+import { FaCubes, FaRegCreditCard, FaTasks, FaUsers } from "react-icons/fa";
 import { MdOutlineDirectionsBike } from "react-icons/md";
 import { Link, Outlet } from "react-router";
 import useRole from "../../Hooks/useRole";
@@ -93,6 +93,26 @@ const DashboardLayout = () => {
                 <span className="is-drawer-close:hidden">Payment history</span>
               </Link>
             </li>
+
+            {/* rider only links */}
+            {
+              role === "rider" && <>
+              <li>
+                  <Link
+                    to={"/dashboard/assigned-deliveries"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Assigned Deliveries"
+                  >
+                    <FaTasks />
+                    <span className="is-drawer-close:hidden">
+                      Assigned Deliveries
+                    </span>
+                  </Link>
+                </li>
+              </>
+            }
+
+            {/* admins only links */}
             {role === "admin" && (
               <>
                 <li>

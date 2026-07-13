@@ -28,7 +28,7 @@ const ApproveRiders = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.patch(`/riders/${rider._id}`, updatedInfo).then((res) => {
-          if (res.data.modifiedCount) {
+          if (res.data.success === true) {
             refetch();
             Swal.fire({
               title: "Successful!",
