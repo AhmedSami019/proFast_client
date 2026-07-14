@@ -44,7 +44,7 @@ const Navbar = () => {
         <NavLink to={"/coverage"}>Coverage</NavLink>
       </li>
       <li>
-        <NavLink>About</NavLink>
+        <NavLink to={'/about'}>About</NavLink>
       </li>
       {user && (
         <>

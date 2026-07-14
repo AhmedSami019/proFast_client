@@ -1,13 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const AssignedDeliveries = () => {
   // load data
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const { data: parcels = [] } = useQuery({
+  const { data: parcels = [], refetch } = useQuery({
     queryKey: ["parcels", user.email, "driver_assigned"],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -16,6 +17,24 @@ const AssignedDeliveries = () => {
       return res.data;
     },
   });
+
+  // event handler
+  const handleAcceptParcel = (parcel) => {
+    const updatedInfo = {
+      deliveryStatus: "rider_arrived",
+    };
+    axiosSecure.patch(`/parcels/${parcel._id}/status`, updatedInfo).then((res) => {
+      if (res.data.modifiedCount) {
+        refetch()
+        Swal.fire({
+          title: "Successful!",
+          text: "Rider assigned for this parcel",
+          icon: "success",
+          timer: 2000,
+        });
+      }
+    });
+  };
 
   return (
     <div>
@@ -36,12 +55,17 @@ const AssignedDeliveries = () => {
           <tbody>
             {parcels.map((parcel, index) => (
               <tr key={parcel._id}>
-                <th>{index +1}</th>
+                <th>{index + 1}</th>
                 <td>{parcel.parcelName}</td>
                 <td>Quality Control Specialist</td>
                 <td className="space-x-5">
-                    <button className="btn btn-primary text-black">Accept</button>
-                    <button className="btn btn-warning text-black">Reject</button>
+                  <button
+                    onClick={() => handleAcceptParcel(parcel)}
+                    className="btn btn-primary text-black"
+                  >
+                    Accept
+                  </button>
+                  <button className="btn btn-warning text-black">Reject</button>
                 </td>
               </tr>
             ))}
