@@ -19,16 +19,17 @@ const AssignedDeliveries = () => {
   });
 
   // event handler
-  const handleAcceptParcel = (parcel) => {
+  const handleParcelActions = (parcel, status) => {
     const updatedInfo = {
-      deliveryStatus: "rider_arrived",
+      deliveryStatus: status,
     };
+    let message = `Your parcel update status is ${status.split("_").join(' ')}`
     axiosSecure.patch(`/parcels/${parcel._id}/status`, updatedInfo).then((res) => {
       if (res.data.modifiedCount) {
         refetch()
         Swal.fire({
           title: "Successful!",
-          text: "Rider assigned for this parcel",
+          text: message,
           icon: "success",
           timer: 2000,
         });
@@ -48,8 +49,9 @@ const AssignedDeliveries = () => {
             <tr>
               <th></th>
               <th>Parcel Name</th>
-              <th>Job</th>
+              <th>Cost</th>
               <th>Actions</th>
+              <th>Other Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -57,15 +59,26 @@ const AssignedDeliveries = () => {
               <tr key={parcel._id}>
                 <th>{index + 1}</th>
                 <td>{parcel.parcelName}</td>
-                <td>Quality Control Specialist</td>
+                <td>{parcels.cost}</td>
                 <td className="space-x-5">
-                  <button
-                    onClick={() => handleAcceptParcel(parcel)}
+                  {
+                    parcel.deliveryStatus !== "driver_assigned"? <span className="text-green-700 capitalize">{parcel.deliveryStatus.split("_").join(" ")}</span>:<><button
+                    onClick={() => handleParcelActions(parcel, 'rider_arrived')}
                     className="btn btn-primary text-black"
                   >
                     Accept
                   </button>
-                  <button className="btn btn-warning text-black">Reject</button>
+                  <button className="btn btn-warning text-black">Reject</button></>
+                  }
+                  
+                </td>
+                <td>
+                  {
+                    parcel.deliveryStatus === "rider_arrived" && <button onClick={()=> handleParcelActions(parcel, "picked_up")} className={`btn btn-primary text-black ${parcel.deliveryStatus !== "rider_arrived" && "btn-disabled"}`}>Picked up</button>
+                  }
+                  {
+                    parcel.deliveryStatus === "picked_up" && <button onClick={()=> handleParcelActions(parcel, "parcel_delivered")} className={`btn btn-primary text-black ${parcel.deliveryStatus !== "picked_up" && "btn-disabled"}`}>Delivered</button>
+                  }
                 </td>
               </tr>
             ))}

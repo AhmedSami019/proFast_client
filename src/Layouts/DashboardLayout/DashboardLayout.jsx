@@ -3,6 +3,7 @@ import { MdOutlineDirectionsBike } from "react-icons/md";
 import { Link, Outlet } from "react-router";
 import useRole from "../../Hooks/useRole";
 import { TbTruckDelivery } from "react-icons/tb";
+import { BsUiChecks } from "react-icons/bs";
 
 const DashboardLayout = () => {
   const { role } = useRole();
@@ -106,6 +107,18 @@ const DashboardLayout = () => {
                     <FaTasks />
                     <span className="is-drawer-close:hidden">
                       Assigned Deliveries
+                    </span>
+                  </Link>
+                </li>
+              <li>
+                  <Link
+                    to={"/dashboard/delivered-parcels"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Delivered Parcel"
+                  >
+                    <BsUiChecks />
+                    <span className="is-drawer-close:hidden">
+                      Delivered Parcel
                     </span>
                   </Link>
                 </li>
