@@ -32,6 +32,8 @@ const Navbar = () => {
     });
   };
 
+  console.log(user);
+
   const links = (
     <>
       <li>
@@ -44,7 +46,7 @@ const Navbar = () => {
         <NavLink to={"/coverage"}>Coverage</NavLink>
       </li>
       <li>
-        <NavLink to={'/about'}>About</NavLink>
+        <NavLink to={"/about"}>About</NavLink>
       </li>
       {user && (
         <>
@@ -95,18 +97,48 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
+        <Link to={"/rider"} className="btn btn-primary text-black mx-4">
+          Be a Rider
+        </Link>
         {user ? (
-          <a onClick={handleLogOut} className="btn btn-outline ">
-            Logout
-          </a>
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <img
+                  alt="Tailwind CSS Navbar component"
+                  src={user?.photoURL}
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex="-1"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            >
+              <li>
+                <Link to={'/dashboard'} className="justify-between">
+                  Dashboard
+                </Link>
+              </li>
+              <li>
+                <a>Settings</a>
+              </li>
+              <li>
+                <a onClick={handleLogOut} className=" ">
+                  Logout
+                </a>
+                ;
+              </li>
+            </ul>
+          </div>
         ) : (
           <Link to={"/login"} className="btn btn-outline ">
             Login
           </Link>
         )}
-        <Link to={"/rider"} className="btn btn-primary text-black mx-4">
-          Be a Rider
-        </Link>
       </div>
     </div>
   );
