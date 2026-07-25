@@ -164,7 +164,7 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <navLink
+                  <NavLink
                     to={"/dashboard/user-management"}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="User Management"
@@ -173,7 +173,7 @@ const DashboardLayout = () => {
                     <span className="is-drawer-close:hidden">
                       User Management
                     </span>
-                  </navLink>
+                  </NavLink>
                 </li>
               </>
             )}

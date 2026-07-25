@@ -5,11 +5,13 @@ import { BiDetail, BiEdit } from "react-icons/bi";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import Swal from "sweetalert2";
 import { Link } from "react-router";
+import { useRef } from "react";
 
 const MyParcels = () => {
   // loaded data by hooks
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const parcelModalRef = useRef()
 
   const { data: parcels = [], refetch } = useQuery({
     queryKey: ["my-parcels", user?.email],
@@ -52,7 +54,7 @@ const MyParcels = () => {
       parcelName: parcel.parcelName,
       senderEmail: parcel.senderEmail,
       cost: parcel.deliveryCost,
-      trackingId: parcel.trackingId
+      trackingId: parcel.trackingId,
     };
 
     const res = await axiosSecure.post(
@@ -62,13 +64,19 @@ const MyParcels = () => {
     window.location.assign(res.data.url);
   };
 
+  // to open the modal
+  const handleOpenModal = ()=>{
+    parcelModalRef.current.showModal()
+  }
+
   return (
     <div>
       <div className="overflow-x-auto">
         <div className="flex justify-between items-center my-5 mx-5">
           <h1 className="text-4xl font-bold">My parcels</h1>
-          <Link to={"/send-parcel"} className="btn btn-primary text-black"
-          >Create parcel</Link>
+          <Link to={"/send-parcel"} className="btn btn-primary text-black">
+            Create parcel
+          </Link>
         </div>
         <table className="table table-zebra border-t border-gray-300">
           {/* head */}
@@ -101,7 +109,11 @@ const MyParcels = () => {
                     </button>
                   )}
                 </td>
-                <td><Link to={`/parcel-tracking/${parcel.trackingId}`}>{parcel.trackingId}</Link></td>
+                <td>
+                  <Link to={`/parcel-tracking/${parcel.trackingId}`}>
+                    {parcel.trackingId}
+                  </Link>
+                </td>
                 <td>{parcel.deliveryStatus}</td>
                 <td>
                   <Link
@@ -110,7 +122,7 @@ const MyParcels = () => {
                   >
                     <BiDetail size={24} />
                   </Link>
-                  <button className="btn btn-square hover:bg-primary mx-3">
+                  <button onClick={handleOpenModal} className="btn btn-square hover:bg-primary mx-3">
                     <BiEdit size={24} />
                   </button>
                   <button
@@ -125,6 +137,24 @@ const MyParcels = () => {
           </tbody>
         </table>
       </div>
+
+
+      {/* modal */}
+     
+      <dialog ref={parcelModalRef} className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Hello!</h3>
+          <p className="py-4">
+            this features in development process
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };

@@ -50,6 +50,32 @@ const ApproveRiders = () => {
     handleUpdateRider(rider, "Rejected");
   };
 
+  const handleDeleteRider = (rider)=>{
+     Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: `Yes delete this user`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/riders/${rider._id}`).then((res) => {
+          if (res.data.deletedCount === 1) {
+            refetch();
+            Swal.fire({
+              title: "Successful!",
+              text: "You successfully remove this rider",
+              icon: "success",
+              timer: 2000,
+            });
+          }
+        });
+      }
+    });
+  }
+
   return (
     <div>
       <h2>You get data of {riders.length} riders data</h2>
@@ -102,7 +128,7 @@ const ApproveRiders = () => {
                   >
                     <IoPersonRemoveSharp />
                   </button>
-                  <button className="btn">
+                  <button onClick={()=> handleDeleteRider(rider)} className="btn">
                     <FaTrashAlt />
                   </button>
                 </td>
