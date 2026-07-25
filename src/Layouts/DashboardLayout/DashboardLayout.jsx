@@ -1,6 +1,6 @@
 import { FaCubes, FaRegCreditCard, FaTasks, FaUsers } from "react-icons/fa";
 import { MdOutlineDirectionsBike } from "react-icons/md";
-import { Link, Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 import useRole from "../../Hooks/useRole";
 import { TbTruckDelivery } from "react-icons/tb";
 import { BsUiChecks } from "react-icons/bs";
@@ -53,7 +53,7 @@ const DashboardLayout = () => {
           <ul className="menu w-full grow">
             {/* List item */}
             <li>
-              <Link
+              <NavLink
                 to={"/"}
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Dashboard Home"
@@ -62,11 +62,11 @@ const DashboardLayout = () => {
                 <span className="is-drawer-close:hidden text-3xl font-bold">
                   ProFast
                 </span>
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
-                to={"/dashboard"}
+              <NavLink
+                to={"/dashboard"} end
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Dashboard Home"
               >
@@ -85,34 +85,34 @@ const DashboardLayout = () => {
                   <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                 </svg>
                 <span className="is-drawer-close:hidden">Dashboard</span>
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
+              <NavLink
                 to={"/dashboard/my-parcels"}
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="My-Parcels"
               >
                 <FaCubes />
                 <span className="is-drawer-close:hidden">My Parcels</span>
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
+              <NavLink
                 to={"/dashboard/payments-history"}
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Payment-history"
               >
                 <FaRegCreditCard />
                 <span className="is-drawer-close:hidden">Payment history</span>
-              </Link>
+              </NavLink>
             </li>
 
             {/* rider only links */}
             {role === "rider" && (
               <>
                 <li>
-                  <Link
+                  <NavLink
                     to={"/dashboard/assigned-deliveries"}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Assigned Deliveries"
@@ -121,10 +121,10 @@ const DashboardLayout = () => {
                     <span className="is-drawer-close:hidden">
                       Assigned Deliveries
                     </span>
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
-                  <Link
+                  <NavLink
                     to={"/dashboard/delivered-parcels"}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Delivered Parcel"
@@ -133,7 +133,7 @@ const DashboardLayout = () => {
                     <span className="is-drawer-close:hidden">
                       Delivered Parcel
                     </span>
-                  </Link>
+                  </NavLink>
                 </li>
               </>
             )}
@@ -142,7 +142,7 @@ const DashboardLayout = () => {
             {role === "admin" && (
               <>
                 <li>
-                  <Link
+                  <NavLink
                     to={"/dashboard/approve-riders"}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Rider Management"
@@ -151,20 +151,20 @@ const DashboardLayout = () => {
                     <span className="is-drawer-close:hidden">
                       Rider Management
                     </span>
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
-                  <Link
+                  <NavLink
                     to={"/dashboard/assign-riders"}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Assign Rider"
                   >
                     <TbTruckDelivery />
                     <span className="is-drawer-close:hidden">Assign Rider</span>
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
-                  <Link
+                  <navLink
                     to={"/dashboard/user-management"}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="User Management"
@@ -173,7 +173,7 @@ const DashboardLayout = () => {
                     <span className="is-drawer-close:hidden">
                       User Management
                     </span>
-                  </Link>
+                  </navLink>
                 </li>
               </>
             )}
