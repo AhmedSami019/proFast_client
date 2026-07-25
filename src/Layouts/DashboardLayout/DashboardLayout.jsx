@@ -1,20 +1,22 @@
 import { FaCubes, FaRegCreditCard, FaTasks, FaUsers } from "react-icons/fa";
 import { MdOutlineDirectionsBike } from "react-icons/md";
-import {  NavLink, Outlet } from "react-router";
+import { NavLink, Outlet } from "react-router";
 import useRole from "../../Hooks/useRole";
 import { TbTruckDelivery } from "react-icons/tb";
 import { BsUiChecks } from "react-icons/bs";
 import logoImg from "../../assets/logo.png";
+import useAuth from "../../Hooks/useAuth";
 
 const DashboardLayout = () => {
   const { role } = useRole();
+  const { user, loading } = useAuth();
 
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Navbar */}
-        <nav className="navbar w-full bg-gray-300">
+        <nav className="navbar w-full bg-gray-300 flex justify-between">
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
@@ -36,7 +38,52 @@ const DashboardLayout = () => {
               <path d="M14 10l2 2l-2 2"></path>
             </svg>
           </label>
-          <div className="px-4">User Dashboard</div>
+
+          {/* dashboard user avatar show */}
+          <div className="px-4">
+  <div className="flex justify-end">
+    <div className="dropdown dropdown-end">
+      {/* Trigger */}
+      <div
+        tabIndex={0}
+        role="button"
+        className="flex items-center gap-2 bg-gray-200 rounded-full p-1 cursor-pointer"
+      >
+        <div className="avatar">
+          <div className="w-10 rounded-full">
+            <img
+              alt="User avatar"
+              src={user?.photoURL}
+            />
+          </div>
+        </div>
+
+        <p className="font-medium mr-2">
+          {loading ? "userName" : user?.displayName}
+        </p>
+      </div>
+
+      {/* Dropdown */}
+      <ul
+        tabIndex={0}
+        className="dropdown-content menu bg-base-100 rounded-box z-50 mt-2 w-52 p-2 shadow"
+      >
+        <li>
+          <a>
+            Profile
+            <span className="badge">New</span>
+          </a>
+        </li>
+        <li>
+          <a>Settings</a>
+        </li>
+        <li>
+          <a>Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
         </nav>
         {/* Page content here */}
         <Outlet />
@@ -66,7 +113,8 @@ const DashboardLayout = () => {
             </li>
             <li>
               <NavLink
-                to={"/dashboard"} end
+                to={"/dashboard"}
+                end
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Dashboard Home"
               >
