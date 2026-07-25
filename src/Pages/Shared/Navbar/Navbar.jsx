@@ -109,8 +109,8 @@ const Navbar = () => {
             >
               <div className="w-10 rounded-full">
                 <img
-                  alt="Tailwind CSS Navbar component"
-                  src={user?.photoURL}
+                  src={user?.photoURL || 'https://img.magnific.com/free-vector/user-blue-gradient_78370-4692.jpg?semt=ais_hybrid&w=740&q=80'}
+                  alt={user?.displayName || "User Avatar"}
                 />
               </div>
             </div>
