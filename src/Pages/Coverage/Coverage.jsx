@@ -5,19 +5,21 @@ import { useRef } from "react";
 
 const Coverage = () => {
   const position = [23.685, 90.3563];
-  const mapRef = useRef()
+  const mapRef = useRef();
 
   const serviceCenters = useLoaderData();
 
-  const handleSearchLocation=(e)=> {
-    e.preventDefault()
-    const location = e.target.location.value
-    const district = serviceCenters.find(c => c.district.toLowerCase().includes(location.toLowerCase()))
-    if(district){
-        const coord = [district.latitude, district.longitude]
-        mapRef.current.flyTo(coord, 14)
+  const handleSearchLocation = (e) => {
+    e.preventDefault();
+    const location = e.target.location.value;
+    const district = serviceCenters.find((c) =>
+      c.district.toLowerCase().includes(location.toLowerCase()),
+    );
+    if (district) {
+      const coord = [district.latitude, district.longitude];
+      mapRef.current.flyTo(coord, 14);
     }
-  }
+  };
 
   return (
     <div className="bg-white p-10 space-y-5 rounded-2xl">
@@ -41,8 +43,16 @@ const Coverage = () => {
                 <path d="m21 21-4.3-4.3"></path>
               </g>
             </svg>
-            <input type="search" required placeholder="Search" name="location" />
-            <button type="submit" className="bg-[#CAEB66] text-lg font-bold px-5 py-1 rounded-full relative -right-3">
+            <input
+              type="search"
+              required
+              placeholder="Search"
+              name="location"
+            />
+            <button
+              type="submit"
+              className="bg-[#CAEB66] text-lg font-bold px-5 py-1 rounded-full relative -right-3"
+            >
               search
             </button>
           </label>
@@ -55,10 +65,11 @@ const Coverage = () => {
         </h2>
         <div className="w-full h-200 rounded-2xl">
           <MapContainer
-            className="h-200 w-full rounded-2xl"
+            className="h-200 w-full rounded-2xl "
             center={position}
             zoom={8}
             scrollWheelZoom={false}
+            style={{ zIndex: 0 }}
             ref={mapRef}
           >
             <TileLayer
