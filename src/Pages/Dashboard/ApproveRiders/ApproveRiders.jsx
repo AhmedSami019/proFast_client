@@ -78,8 +78,8 @@ const ApproveRiders = () => {
 
   return (
     <div>
-      <h2>You get data of {riders.length} riders data</h2>
       {/* table */}
+      <h2 className="text-4xl font-bold m-4">Applicant Riders</h2>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}

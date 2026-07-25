@@ -71,7 +71,6 @@ const AssignRiders = () => {
   return (
     <div>
       <h2 className="text-4xl font-bold m-5">Assign Riders</h2>
-      <p>parcels {parcels.length}</p>
       <div className="overflow-x-auto">
         <table className="table table-zebra">
           {/* head */}
