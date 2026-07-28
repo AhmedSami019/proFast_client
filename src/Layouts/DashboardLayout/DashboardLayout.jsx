@@ -6,10 +6,39 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { BsUiChecks } from "react-icons/bs";
 import logoImg from "../../assets/logo.png";
 import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const DashboardLayout = () => {
   const { role } = useRole();
-  const { user, loading } = useAuth();
+  const { user, loading, logOut } = useAuth();
+
+  // handle logout function
+  const handleLogOut = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to logout",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "Stay",
+      cancelButtonColor: "#3085d6",
+      confirmButtonColor: "#d33",
+      confirmButtonText: "Yes, Logout!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logOut()
+          .then(() => {
+            Swal.fire({
+              title: "Logged out!",
+              text: "Successfully logged out.",
+              icon: "success",
+            });
+          })
+          .catch((error) => {
+            console.log(error.code);
+          });
+      }
+    });
+  };
 
   return (
     <div className="drawer lg:drawer-open">
@@ -41,49 +70,43 @@ const DashboardLayout = () => {
 
           {/* dashboard user avatar show */}
           <div className="px-4">
-  <div className="flex justify-end">
-    <div className="dropdown dropdown-end">
-      {/* Trigger */}
-      <div
-        tabIndex={0}
-        role="button"
-        className="flex items-center gap-2 bg-gray-200 rounded-full p-1 cursor-pointer"
-      >
-        <div className="avatar">
-          <div className="w-10 rounded-full">
-            <img
-              alt="User avatar"
-              src={user?.photoURL}
-            />
+            <div className="flex justify-end">
+              <div className="dropdown dropdown-end">
+                {/* Trigger */}
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="flex items-center gap-2 bg-gray-200 rounded-full p-1 cursor-pointer"
+                >
+                  <div className="avatar">
+                    <div className="w-10 rounded-full">
+                      <img alt="User avatar" src={user?.photoURL} />
+                    </div>
+                  </div>
+
+                  <p className="font-medium mr-2">
+                    {loading ? "userName" : user?.displayName}
+                  </p>
+                </div>
+
+                {/* Dropdown */}
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu bg-base-100 rounded-box z-50 mt-2 w-52 p-2 shadow"
+                >
+                  <li>
+                    <a>Profile</a>
+                  </li>
+                  <li>
+                    <a>Settings</a>
+                  </li>
+                  <li>
+                    <a onClick={handleLogOut}>Logout</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <p className="font-medium mr-2">
-          {loading ? "userName" : user?.displayName}
-        </p>
-      </div>
-
-      {/* Dropdown */}
-      <ul
-        tabIndex={0}
-        className="dropdown-content menu bg-base-100 rounded-box z-50 mt-2 w-52 p-2 shadow"
-      >
-        <li>
-          <a>
-            Profile
-            <span className="badge">New</span>
-          </a>
-        </li>
-        <li>
-          <a>Settings</a>
-        </li>
-        <li>
-          <a>Logout</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
         </nav>
         {/* Page content here */}
         <Outlet />

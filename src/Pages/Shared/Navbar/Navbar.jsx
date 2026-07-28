@@ -32,7 +32,6 @@ const Navbar = () => {
     });
   };
 
-  console.log(user);
 
   const links = (
     <>
