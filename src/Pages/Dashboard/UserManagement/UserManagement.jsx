@@ -55,8 +55,8 @@ const UserManagement = () => {
 
   return (
     <div>
-      <div className="flex justify-between my-5">
-        <h2 className="text-4xl font-bold m-4">User Management</h2>
+      <div className="flex justify-between">
+        <h2 className="text-4xl font-bold m-5">User Management</h2>
         <label className="input mr-5">
           <svg
             className="h-[1em] opacity-50"

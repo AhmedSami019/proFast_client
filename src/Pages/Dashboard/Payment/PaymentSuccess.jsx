@@ -25,10 +25,10 @@ const PaymentSuccess = () => {
     },[sessionId,axiosSecure])
 
     return (
-        <div>
-            your payment success
-            <p>your tracking id : {paymentInfo.trackingId}</p>
-            <p>your transaction id : {paymentInfo.transactionId}</p>
+        <div className="flex flex-col justify-center items-center text-center mt-10">
+            <p className="text-3xl font-bold">Your payment success 🎉</p>
+            <p>tracking id : {paymentInfo.trackingId}</p>
+            <p>transaction id : {paymentInfo.transactionId}</p>
         </div>
     );
 };
