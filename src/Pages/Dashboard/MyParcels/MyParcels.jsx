@@ -11,7 +11,7 @@ const MyParcels = () => {
   // loaded data by hooks
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const parcelModalRef = useRef()
+  const parcelModalRef = useRef();
 
   const { data: parcels = [], refetch } = useQuery({
     queryKey: ["my-parcels", user?.email],
@@ -65,88 +65,94 @@ const MyParcels = () => {
   };
 
   // to open the modal
-  const handleOpenModal = ()=>{
-    parcelModalRef.current.showModal()
-  }
+  const handleOpenModal = () => {
+    parcelModalRef.current.showModal();
+  };
 
   return (
     <div>
       <div className="overflow-x-auto">
-        <div className="flex justify-between items-center my-5 mx-5">
-          <h1 className="text-4xl font-bold">My parcels</h1>
+        <div className="flex justify-between items-start sm:items-center gap-4 my-5 px-4">
+          <h1 className="text-2xl md:text-4xl font-bold">My parcels</h1>
           <Link to={"/send-parcel"} className="btn btn-primary text-black">
             Create parcel
           </Link>
         </div>
-        <table className="table table-zebra border-t border-gray-300">
-          {/* head */}
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Parcel cost</th>
-              <th>Payment</th>
-              <th>Tracking id</th>
-              <th>Delivery status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {parcels.map((parcel, index) => (
-              <tr key={index}>
-                <th>{index + 1}</th>
-                <td>{parcel.parcelName}</td>
-                <td>{parcel.deliveryCost} tk</td>
-                <td>
-                  {parcel.paymentStatus === "paid" ? (
-                    <span className="text-green-500">Paid</span>
-                  ) : (
-                    <button
-                      onClick={() => handlePayment(parcel)}
-                      className="btn btn-sm btn-primary text-black"
-                    >
-                      Pay
-                    </button>
-                  )}
-                </td>
-                <td>
-                  <Link to={`/parcel-tracking/${parcel.trackingId}`}>
-                    {parcel.trackingId}
-                  </Link>
-                </td>
-                <td>{parcel.deliveryStatus}</td>
-                <td>
-                  <Link
-                    to={`/dashboard/payment/${parcel._id}`}
-                    className="btn btn-square hover:bg-primary"
-                  >
-                    <BiDetail size={24} />
-                  </Link>
-                  <button onClick={handleOpenModal} className="btn btn-square hover:bg-primary mx-3">
-                    <BiEdit size={24} />
-                  </button>
-                  <button
-                    onClick={() => handleDeleteParcel(parcel._id)}
-                    className="btn btn-square hover:bg-primary"
-                  >
-                    <RiDeleteBin5Fill size={24} />
-                  </button>
-                </td>
+        <div className="overflow-x-auto rounded-lg">
+          <table className="table table-zebra w-full border-t border-gray-300">
+            {/* head */}
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th className="hidden lg:table-cell">Parcel cost</th>
+                <th>Payment</th>
+                <th className="hidden lg:table-cell">Tracking id</th>
+                <th className="hidden lg:table-cell">Delivery status</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {parcels.map((parcel, index) => (
+                <tr key={index}>
+                  <th>{index + 1}</th>
+                  <td>{parcel.parcelName}</td>
+                  <td className="hidden lg:table-cell">
+                    {parcel.deliveryCost} tk
+                  </td>
+                  <td>
+                    {parcel.paymentStatus === "paid" ? (
+                      <span className="text-green-500">Paid</span>
+                    ) : (
+                      <button
+                        onClick={() => handlePayment(parcel)}
+                        className="btn btn-sm btn-primary text-black"
+                      >
+                        Pay
+                      </button>
+                    )}
+                  </td>
+                  <td className="hidden lg:table-cell">
+                    <Link to={`/parcel-tracking/${parcel.trackingId}`}>
+                      {parcel.trackingId}
+                    </Link>
+                  </td>
+                  <td className="hidden lg:table-cell">
+                    {parcel.deliveryStatus}
+                  </td>
+                  <td className="flex flex-wrap gap-2 justify-center items-center">
+                    <Link
+                      to={`/dashboard/payment/${parcel._id}`}
+                      className="btn btn-square hover:bg-primary"
+                    >
+                      <BiDetail size={24} />
+                    </Link>
+                    <button
+                      onClick={handleOpenModal}
+                      className="btn btn-square hover:bg-primary mx-3"
+                    >
+                      <BiEdit size={24} />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteParcel(parcel._id)}
+                      className="btn btn-square hover:bg-primary"
+                    >
+                      <RiDeleteBin5Fill size={24} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
-
       {/* modal */}
-     
+
       <dialog ref={parcelModalRef} className="modal">
-        <div className="modal-box">
+        <div className="modal-box w-11/12 max-w-md">
           <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">
-            this features in development process
-          </p>
+          <p className="py-4">this features in development process</p>
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}

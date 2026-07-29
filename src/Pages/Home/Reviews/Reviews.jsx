@@ -32,24 +32,35 @@ const Reviews = () => {
           effect={"coverflow"}
           grabCursor={true}
           centeredSlides={true}
-          slidesPerView={3}
+          slidesPerView={1}
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+            },
+            540: {
+              slidesPerView: 2,
+            },
+            924: {
+              slidesPerView: 3,
+            },
+          }}
           coverflowEffect={{
             rotate: 30,
-            stretch: '50%',
+            stretch: "50%",
             depth: 100,
             modifier: 1,
             slideShadows: true,
-            scale: 0.75
+            scale: 0.75,
           }}
           pagination={true}
           modules={[EffectCoverflow, Pagination, Autoplay]}
           className="mySwiper"
-           autoplay={{ delay: 2000, disableOnInteraction: false }}
-        loop={allReviews.length > 3}
+          autoplay={{ delay: 2000, disableOnInteraction: false }}
+          loop={allReviews.length > 3}
         >
           {allReviews.map((review) => (
             <SwiperSlide key={review.id}>
-              <ReviewCard review={review}/>
+              <ReviewCard review={review} />
             </SwiperSlide>
           ))}
         </Swiper>
