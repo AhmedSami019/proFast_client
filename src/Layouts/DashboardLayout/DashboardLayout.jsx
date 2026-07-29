@@ -120,15 +120,19 @@ const DashboardLayout = () => {
         ></label>
         <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
           {/* Sidebar content here */}
-          <ul className="menu w-full grow">
+          <ul className="menu w-full mt-15 lg:mt-0 grow">
             {/* List item */}
             <li>
               <NavLink
                 to={"/"}
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Dashboard Home"
+                data-tip="App Home"
               >
-                <img src={logoImg} alt="" />
+                <img
+                  src={logoImg}
+                  alt="ProFast"
+                  className="w-10 h-10 object-contain"
+                />
                 <span className="is-drawer-close:hidden text-3xl font-bold">
                   ProFast
                 </span>
