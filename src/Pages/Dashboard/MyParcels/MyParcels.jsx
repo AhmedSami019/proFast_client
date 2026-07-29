@@ -85,10 +85,10 @@ const MyParcels = () => {
               <tr>
                 <th></th>
                 <th>Name</th>
-                <th className="hidden lg:table-cell">Parcel cost</th>
+                <th className="hidden md:table-cell">Parcel cost</th>
                 <th>Payment</th>
-                <th className="hidden lg:table-cell">Tracking id</th>
-                <th className="hidden lg:table-cell">Delivery status</th>
+                <th className="hidden md:table-cell">Tracking id</th>
+                <th className="hidden md:table-cell">Delivery status</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -97,7 +97,7 @@ const MyParcels = () => {
                 <tr key={index}>
                   <th>{index + 1}</th>
                   <td>{parcel.parcelName}</td>
-                  <td className="hidden lg:table-cell">
+                  <td className="hidden md:table-cell">
                     {parcel.deliveryCost} tk
                   </td>
                   <td>
@@ -112,12 +112,12 @@ const MyParcels = () => {
                       </button>
                     )}
                   </td>
-                  <td className="hidden lg:table-cell">
+                  <td className="hidden md:table-cell">
                     <Link to={`/parcel-tracking/${parcel.trackingId}`}>
                       {parcel.trackingId}
                     </Link>
                   </td>
-                  <td className="hidden lg:table-cell">
+                  <td className="hidden md:table-cell">
                     {parcel.deliveryStatus}
                   </td>
                   <td className="flex flex-wrap gap-2 justify-center items-center">

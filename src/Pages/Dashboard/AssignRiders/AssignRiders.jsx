@@ -79,7 +79,7 @@ const AssignRiders = () => {
               <th></th>
               <th>Name</th>
               <th>Cost</th>
-              <th>Created At</th>
+              <th className="hidden md:table-cell">Created At</th>
               <th>Pickup District</th>
               <th>Actions</th>
             </tr>
@@ -90,7 +90,7 @@ const AssignRiders = () => {
                 <th>{index + 1}</th>
                 <td>{parcel.parcelName}</td>
                 <td>{parcel.deliveryCost}</td>
-                <td>{parcel.createdAt}</td>
+                <td className="hidden md:table-cell">{parcel.createdAt}</td>
                 <td>{parcel.senderDistrict}</td>
                 <td>
                   <button

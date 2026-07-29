@@ -87,7 +87,7 @@ const UserManagement = () => {
               <th>User</th>
               <th>Role</th>
               <th>Admins Actions</th>
-              <th>Others Actions</th>
+              <th className="hidden md:table-cell">Others Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -108,7 +108,7 @@ const UserManagement = () => {
                     </div>
                     <div>
                       <div className="font-bold">{user.displayName}</div>
-                      <div className="text-sm opacity-50">{user.email}</div>
+                      <div className="text-sm opacity-50 hidden md:block">{user.email}</div>
                     </div>
                   </div>
                 </td>
@@ -130,7 +130,7 @@ const UserManagement = () => {
                     </button>
                   )}
                 </td>
-                <th>
+                <th className="hidden md:table-cell">
                   <button className="btn btn-ghost btn-xs">details</button>
                 </th>
               </tr>

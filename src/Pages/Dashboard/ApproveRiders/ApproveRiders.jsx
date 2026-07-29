@@ -81,16 +81,16 @@ const ApproveRiders = () => {
       {/* table */}
       <h2 className="text-4xl font-bold m-4">Applicant Riders</h2>
       <div className="overflow-x-auto">
-        <table className="table">
+        <table className="table table-zebra w-full border-t border-gray-300">
           {/* head */}
           <thead>
             <tr>
               <th></th>
               <th>Name</th>
-              <th>Email</th>
+              <th className="hidden md:table-cell">Email</th>
               <th>District</th>
               <th>Status</th>
-              <th>Work Status</th>
+              <th className="hidden md:table-cell">Work Status</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -99,9 +99,9 @@ const ApproveRiders = () => {
               <tr key={index}>
                 <th>{index + 1}</th>
                 <td>{rider.riderName}</td>
-                <td>{rider.riderEmail}</td>
+                <td className="hidden md:table-cell">{rider.riderEmail}</td>
                 <td>{rider.riderDistrict}</td>
-                <td>
+                <td className="hidden md:table-cell">
                   <p
                     className={
                       rider.status === "Approved"
@@ -115,7 +115,7 @@ const ApproveRiders = () => {
                   </p>
                 </td>
                 <td>{rider.workStatus}</td>
-                <td>
+                <td className="flex flex-wrap gap2 justify-center items-center">
                   <button
                     onClick={() => handleApprovalRider(rider)}
                     className="btn"
