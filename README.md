@@ -1,18 +1,63 @@
-# React + Vite
+# 🚚 ProFast
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ProFast is a modern parcel delivery web application that allows users to send parcels, track deliveries, make secure online payments, and manage delivery operations efficiently. The platform includes separate dashboards for customers, riders, and administrators.
 
-Currently, two official plugins are available:
+## 🌐 Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🔗 https://profast-delivery-web-app.web.app
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- User authentication with Firebase (Email/Password & Google Sign-in)
+- Create and manage parcel delivery requests
+- Secure online payment integration with Stripe
+- Real-time parcel tracking using a unique tracking ID
+- Rider assignment and delivery management
+- Admin dashboard for user and rider management
+- Responsive design for desktop, tablet, and mobile devices
 
-Note: This will impact Vite dev & build performances.
+## 🛠️ Technologies Used
 
-## Expanding the ESLint configuration
+### Frontend
+- React
+- React Router
+- Tailwind CSS
+- DaisyUI
+- TanStack Query (React Query)
+- Axios
+- Firebase Authentication
+- Recharts
+- Swiper.js
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- Firebase Admin SDK
+- Stripe API
+
+## 📦 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/AhmedSami019/proFast_client
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env` file and add the required environment variables.
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+## 👨‍💻 Author
+
+**EA Sami**
