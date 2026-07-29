@@ -22,7 +22,7 @@ const Coverage = () => {
   };
 
   return (
-    <div className="bg-white p-10 space-y-5 rounded-2xl">
+    <div className="bg-white p-5 md:p-10 space-y-5 rounded-2xl">
       <div className="space-y-12 mb-10">
         <h2 className="text-5xl font-bold">We are available in 64 districts</h2>
         <form onSubmit={handleSearchLocation}>
